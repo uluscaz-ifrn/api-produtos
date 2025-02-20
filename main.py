@@ -44,10 +44,12 @@ def update_produto(produto_id: int, produto: Produto): # Função que atualiza u
     return {"message": "Produto não encontrado"}
 
 @app.delete("/produtos/{produto_id}")
-def delete_produto(produto_id: int): # Função que deleta um produto
-    for i in range(len(produtos)):
-        if produtos[i].id == produto_id:
-            produto = produtos[i]
-            del produtos[i]
-            return produto
-    return {"message": "Produto não encontrado"}
+def delete_produto(produto_id: int):
+    global produtos
+    produtos_filtrados = [p for p in produtos if p.id != produto_id]
+    if len(produtos_filtrados) == len(produtos):
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Produto não encontrado")
+    
+    produtos = produtos_filtrados
+    return {"message": "Produto deletado com sucesso"}
+
