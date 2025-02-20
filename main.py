@@ -1,20 +1,8 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException, status
 from pydantic import BaseModel
+from models import Produto, produtos  # Importando do models.py
 
 app = FastAPI() # Instância do FastAPI
-
-# Modelo de dados para um produto
-class Produto(BaseModel):
-    id: int
-    nome: str
-    preco: float
-
-# Lista de produtos
-produtos = [
-    Produto(id=1, nome="Produto 1", preco=100.0),
-    Produto(id=2, nome="Produto 2", preco=200.0),
-    Produto(id=3, nome="Produto 3", preco=300.0)
-]
 
 @app.get("/produtos/")
 def get_produtos(): # Função que retorna a lista de produtos
