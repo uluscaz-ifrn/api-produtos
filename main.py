@@ -13,7 +13,7 @@ def get_produto(produto_id: int): # Função que retorna um produto específico
     for produto in produtos:
         if produto.id == produto_id:
             return produto
-    return {"message": "Produto não encontrado"}
+    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Produto não encontrado")
 
 @app.post("/produtos/")
 def create_produto(produto: Produto):
