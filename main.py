@@ -28,7 +28,10 @@ def get_produto(produto_id: int): # Função que retorna um produto específico
     return {"message": "Produto não encontrado"}
 
 @app.post("/produtos/")
-def create_produto(produto: Produto): # Função que cria um novo produto
+def create_produto(produto: Produto):
+    for p in produtos:
+        if p.id == produto.id:
+            return {"message": "ID já existe. Escolha outro ID."}
     produtos.append(produto)
     return produto
 
